@@ -93,18 +93,18 @@ def generate_badge(data):
     file_path = os.path.join(folder, f"{data['name']}_badge.pdf")
 
     # Clean and truncate
-    name = truncate_to_last_word(data['name'], 16)
-    company = truncate_to_last_word(data['company'], 18)
+    name = truncate_to_last_word(data['name'], 18)
+    company = truncate_to_last_word(data['company'], 20)
     occupation = truncate_to_last_word(data['occupation'], 20)
 
     # Create PDF badge
     c = canvas.Canvas(file_path, pagesize=portrait((4 * 72, 5.5 * 72)))  # 4x5.5 inches
     c.setFont("Times-Bold", 25)
-    c.drawString(48, 230, name)
-    c.setFont("Times-Roman", 25)
-    c.drawString(48, 165, company)
+    c.drawString(65, 220, name)
+    c.setFont("Times-Roman", 23)
+    c.drawString(65, 160, company)
     c.setFont("Times-Roman", 22)
-    c.drawString(48, 110, occupation)
+    c.drawString(65, 105, occupation)
     c.save()
 
     return file_path
