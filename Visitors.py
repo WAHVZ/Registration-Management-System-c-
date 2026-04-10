@@ -63,10 +63,11 @@ def submit_form():
         is_submitting = False
         return
 
-    if not (phone.isdigit() and phone.startswith("03") and len(phone) == 11):    # For pakistani phone numbers checking
-        messagebox.showwarning("Validation Error", "Phone number must start with '03' and be 11 digits long.")
-        is_submitting = False
-        return
+    if (phone):
+        if not (phone.isdigit() and phone.startswith("03") and len(phone) == 11):    # For pakistani phone numbers checking
+            messagebox.showwarning("Validation Error", "Phone number must start with '03' and be 11 digits long.")
+            is_submitting = False
+            return
 
     try:
         conn = sqlite3.connect(DB_FILE, timeout=10)
@@ -96,9 +97,9 @@ def submit_form():
 
         # Badge generation
         data = {"name": name, "company": company, "occupation": occupation}
-        helper.generate_badge(data)
-        # badge_path = helper.generate_badge(data)
-        # helper.print_badge(badge_path)
+        #helper.generate_badge(data)
+        badge_path = helper.generate_badge(data)
+        helper.print_badge(badge_path)
 
         # Return focus to main window
         root.lift()
@@ -125,7 +126,7 @@ def load_previous():
     if result:
         editing_last_entry_id = result[0]  # store ID of the last record
         entry_name.delete(0, tk.END); entry_name.insert(0, result[1])
-        entry_company.delete(0, tk.END); entry_company.insert(result[2])
+        entry_company.delete(0, tk.END); entry_company.insert(0, result[2])
         entry_occupation.delete(0, tk.END); entry_occupation.insert(0, result[3])
         entry_phone.delete(0, tk.END); entry_phone.insert(0, result[4])
         entry_email.delete(0, tk.END); entry_email.insert(0, result[5])
